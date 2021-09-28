@@ -12,9 +12,9 @@ dashboard = meraki.DashboardAPI(key)
 
 orgs = dashboard.organizations.getOrganizations()
 
-# Get firmware for network with all devices
+# Get firmware for network with all devices (GBW Abbots Passage)
 
-net_id = 'L_714946440845070050'
+net_id = 'L_699183842149272497'
 
 # Print out firmwares obtained from special network
 
@@ -22,7 +22,7 @@ firmwares = dashboard.networks.getNetworkFirmwareUpgrades(
      net_id
 )
 
-pprint.pprint(firmwares)
+pprint.pprint(firmwares['products'])
 
 MX_upgrade = int(input('Please enter desired MX upgrade ID, enter 0 otherwise : '))
 MR_upgrade = int(input('Please enter desired MR upgrade ID, enter 0 otherwise : '))
@@ -36,9 +36,15 @@ err = 0
 
 for i in range(len(orgs)):
 
+    # Check license state
+    try:
+
+        license = dashboard.organizations.getOrganizationLicensesOverview(orgs[i]['id'])
+
     # Get all networks
 
         networks = dashboard.organizations.getOrganizationNetworks(orgs[i]['id'])
+
 
     # Cycle through every network
 
@@ -101,6 +107,7 @@ for i in range(len(orgs)):
                         products={'camera': {'nextUpgrade': {'toVersion': {'id': MV_upgrade}}}}
                     )
 
+
             except meraki.APIError as e:
 
 
@@ -113,6 +120,14 @@ for i in range(len(orgs)):
 
                 if "403" in str(e):
                             print("You have tried to write to an org/network without access")
+
+                if "404" in str(e):
+                            print("Org license information unavailable")
+
+    except meraki.APIError as a:
+
+        if "404" in str(a):
+                    print("Org license information unavailable")
 
 if err == 0:
     print("Script finished successfully")

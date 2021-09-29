@@ -1,2 +1,6 @@
+dotenv
+meraki
+pypiwin32
 pyinstaller==4.5.1
 pandas
+click

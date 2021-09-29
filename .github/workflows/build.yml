@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Package Application
+      - name: Package Application Windows
         uses: JackMcKew/pyinstaller-action-windows@main
         with:
           path: src

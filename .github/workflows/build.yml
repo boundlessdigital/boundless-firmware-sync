@@ -20,5 +20,5 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: boundless-firmware-scheduler
+          name: boundless-firmware-scheduler.exe
           path: src/dist/windows

@@ -1,0 +1,6 @@
+pypiwin32
+pyinstaller==4.5.1
+meraki
+
+pandas
+click

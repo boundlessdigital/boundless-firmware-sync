@@ -3,9 +3,6 @@ import os
 import json
 import pprint
 import pandas as pd
-from dotenv import load_dotenv
-
-load_dotenv()
 
 key = os.environ.get('API_KEY')
 dashboard = meraki.DashboardAPI(key)
